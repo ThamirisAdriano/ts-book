@@ -23,4 +23,4 @@ function converToHex(hex:string): void {
        
     }
 }
-// console.log(converToHex('pink'))
+console.log(converToHex('purple'))

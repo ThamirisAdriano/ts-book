@@ -2,7 +2,7 @@ interface Tributavel{
     CalcularTributo(): number
 }
 
-abstract class Conta4 {
+export abstract class Conta4 {
 
     private static ultimaConta: number = 0;
 
