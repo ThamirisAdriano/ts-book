@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
 class DataBase {
     constructor() {
-        this.DB_URL = "mongodb://localhost:27017/db_portal";
+        this.DB_URL = "mongo://localhost:27017/db_portal";
     }
     createConnection() {
         mongoose_1.default.connect(this.DB_URL);
