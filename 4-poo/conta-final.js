@@ -1,55 +1,69 @@
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        if (typeof b !== "function" && b !== null)
-            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var Conta3 = /** @class */ (function () {
-    function Conta3(numeroDaConta, titular, saldo) {
-        this.numeroDaConta = ++Conta3.ultimaConta;
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.Conta4 = void 0;
+class Conta4 {
+    get numeroDaConta() {
+        return this._numeroDaConta;
+    }
+    constructor(titular, saldo) {
+        this._numeroDaConta = ++Conta4.ultimaConta;
         this.titular = titular;
-        this.saldo = saldo;
+        this._saldo = saldo;
     }
-    Conta3.prototype.consultaSaldo = function () {
-        return "O seu saldo atual \u00E9 de R".concat(this.saldo);
-    };
-    Conta3.prototype.adicionaSaldo = function (saldo) {
-        this.saldo += saldo;
-    };
-    Conta3.prototype.sacarDoSaldo = function (saldo) {
-        this.saldo -= saldo;
-    };
-    Conta3.ultimaConta = 0;
-    return Conta3;
-}());
-var ContaPF3 = /** @class */ (function (_super) {
-    __extends(ContaPF3, _super);
-    function ContaPF3(cpf, numeroDaConta, titular, saldo) {
-        var _this = _super.call(this, numeroDaConta, titular, saldo) || this;
-        _this.cpf = cpf;
-        return _this;
+    // Já que o número da conta foi gerado automaticamente, podemos remover o parâmetro "numeroDaConta" do 
+    // construtor e atribuir o valor de ++Conta3.ultimaConta diretamente à propriedade "numeroDaConta" na classe 
+    // Conta3, como no exemplo abaixo:
+    consultaSaldo() {
+        return this._saldo;
     }
-    return ContaPF3;
-}(Conta3));
-var ContaPJ3 = /** @class */ (function (_super) {
-    __extends(ContaPJ3, _super);
-    function ContaPJ3(cnpj, numeroDaConta, titular, saldo) {
-        var _this = _super.call(this, numeroDaConta, titular, saldo) || this;
-        _this.cnpj = cnpj;
-        return _this;
+    adicionaSaldo(saldo) {
+        this._saldo += saldo;
     }
-    return ContaPJ3;
-}(Conta3));
-var pessoaFisica3 = new ContaPF3(353, 1, "José Silva", 1000);
-var pessoaJuridica3 = new ContaPJ3(318, 2, "Maria Santos", 10000);
-console.log(pessoaFisica3);
-console.log(pessoaJuridica3);
+    sacarDoSaldo(saldo) {
+        this._saldo -= saldo;
+    }
+}
+exports.Conta4 = Conta4;
+Conta4.ultimaConta = 0;
+class ContaPF4 extends Conta4 {
+    consultar() {
+        return `Saldo atual: R${this.consultaSaldo()}`;
+    }
+    // conforme	 a demanda	que	 temos	começando	por	PF,	onde	o	cliente	não	pode
+    //ficar	 negativo.	 Vamos	 criar	 um	 novo	 método	 chamado	 	sacar	,
+    //que	valide	se	o	valor	do	saque	é	maior	que	o	saldo	da	conta	e	se	o   
+    //saldo	é	maior	que	0,	e	adicionar	um	trecho	de	código	a	ele.
+    sacar(valor) {
+        if (this.consultaSaldo() > 0 && valor <= this.consultaSaldo()) {
+            this.sacarDoSaldo(valor);
+        }
+    }
+    constructor(cpf, titular, saldo) {
+        super(titular, saldo);
+        this.cpf = cpf;
+    }
+}
+class ContaPJ4 extends Conta4 {
+    consultar() {
+        return `Saldo atual: R${this.consultaSaldo()}`;
+    }
+    //Como	 na	 conta	 PJ	 o	 cliente	 pode	ficar	 negativo,	 vamos	 criar
+    //um	método	chamado		sacar		 e	 passar	 o	 valor	 do	 seu	 parâmetro
+    //para	o	método		sacarDoSaldo		da	classe	pai.
+    sacar(valor) {
+        this.sacarDoSaldo(valor);
+    }
+    CalcularTributo() {
+        let tributo = (this.consultar() * 1.27);
+        return tributo;
+    }
+    constructor(cnpj, titular, saldo) {
+        super(titular, saldo);
+        this.cnpj = cnpj;
+    }
+}
+const pessoaFisica4 = new ContaPF4(353, "Silva", 1000);
+const pessoaFisica5 = new ContaPF4(353, "José Silva", 1000);
+const pessoaJuridica4 = new ContaPJ4(353315658524, 'Maria Elenice', 1500);
+console.log(pessoaFisica4, pessoaFisica5);
+console.log(pessoaJuridica4);

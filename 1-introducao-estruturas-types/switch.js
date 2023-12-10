@@ -1,6 +1,7 @@
-var listColor = ['white', 'blue', 'pink', 'orange', 'purple'];
-var listHex = ['#FFFFFF', '#0000FF', '#FFC0CB', '#FFA500', '#800080'];
-var hex = 'white';
+"use strict";
+let listColor = ['white', 'blue', 'pink', 'orange', 'purple'];
+let listHex = ['#FFFFFF', '#0000FF', '#FFC0CB', '#FFA500', '#800080'];
+let hex = 'white';
 function converToHex(hex) {
     switch (hex) {
         case 'white':
@@ -19,7 +20,7 @@ function converToHex(hex) {
             console.log(listHex[4]);
             break;
         default:
-            console.log("N\u00E3o temos a cor ".concat(hex));
+            console.log(`Não temos a cor ${hex}`);
     }
 }
-// console.log(converToHex('pink'))
+console.log(converToHex('purple'));
